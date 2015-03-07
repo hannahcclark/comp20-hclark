@@ -64,8 +64,8 @@ function drawOthers(userLocs) {
 			dLng = myLng - lng;
 			dLng = dLng.toRadians();
 			a = Math.sin(dLat/2) * Math.sin(dLat/2) + 
-                Math.cos(lat.toRad()) * Math.cos(mylat.toRad()) * 
-                Math.sin(dLon/2) * Math.sin(dLon/2); 
+                Math.cos(lat.toRadians()) * Math.cos(myLat.toRadians()) * 
+                Math.sin(dLng/2) * Math.sin(dLng/2); 
 			c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
 			distance = 3963.1676 * c;
 			marker = new google.maps.Marker({
