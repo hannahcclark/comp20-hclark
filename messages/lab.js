@@ -1,13 +1,11 @@
-function writeMessages () {
-	if (this.readystate == 4 && this.status == 200) {
-		console.log(this.response);
-	};
-	console.log(this.readystate);
-}
-
 function parse () {
 	request = new XMLHttpRequest();
-	request.onreadystatechange = writeMessages;
+	request.onreadystatechange = function () {
+		if (request.readystate == 4 && request.status == 200) {
+			console.log(request.response);
+		}
+		console.log(request.readystate);
+	};
 	request.responseType = "json"
 	request.open("get", "data.json", true);
 	request.send();
