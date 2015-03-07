@@ -8,7 +8,7 @@ function parse () {
 	request = new XMLHttpRequest();
 	request.onreadystatechange = writeMessages;
 	request.responseType = "json"
-	request.open("get", "messages.json", true);
+	request.open("get", "data.json", true);
 	request.send();
 }
 
