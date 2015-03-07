@@ -3,8 +3,47 @@
 <head>
 <title>Marauder's Map</title>
 <link rel="stylesheet" href="mmap_style.css"/>
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=true&amp;libraries=places"></script>
 <script>
+var map;
+var myLat = 42.4084971;
+var myLng = -71.1162187; //Default is halligan hall
+var myOptions = {
+	zoom: 13, // The larger the zoom number, the bigger the zoom
+	center: new google.maps.LatLng(myLat, myLng),
+	mapTypeId: google.maps.MapTypeId.ROADMAP
+};
+function init() {
+	// Set up map
+	map = new google.maps.Map(document.getElementById("map"), myOptions);
+	console.log("beforeCall");
+	useMyLoc();
+	/*draw map*/
+	/*getlocation, make post request*/
+	/*put me on map*/
+	/*make location pins*/
 
+}
+function useMyLoc () {
+	console.log("myLoc");
+	if (navigator.geolocation) {
+		console.log("a");
+		navigator.geolocation.getCurrentPosition(function(position) {
+			myLat = position.coords.latitude;
+			myLng = position.coords.longitude;
+			;
+			map.panTo(new google.maps.LatLng(myLat, myLng));
+			console.log("b");
+			requestLocs();
+		});
+	}
+	else {
+		console.log("c");
+	}
+}
+function drawMap() {
+
+}
 </script>
 </head>
 <body onload="init()">
