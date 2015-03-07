@@ -17,7 +17,6 @@ var myOptions = {
 function init() {
 	// Set up map
 	map = new google.maps.Map(document.getElementById("map"), myOptions);
-	console.log("beforeCall");
 	useMyLoc();
 }
 function useMyLoc () {
@@ -29,6 +28,7 @@ function useMyLoc () {
 			myPos = new google.maps.LatLng(myLat, myLng)
 			map.panTo(myPos);
 			marker = new google.maps.Marker({
+				map: map,
 				position: myPos,
 				title: login
 			})
@@ -41,13 +41,14 @@ function requestLocs() {
 	request.open("POST", "https://secret-about-box.herokuapp.com/sendLocation",true);
 	request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	requestLocs.onload = function () {
+		console.log(this.responseText);
 		data = JSON.parse(this.responseText);
-		console.log(data);
+		drawOthers(data);
 	}
 	request.send("login=" + login + "&lat=" + myLat + "&lng=" + myLng);
 }
-function drawOthers() {
-
+function drawOthers(userLocs) {
+	console.log("request done");
 }
 </script>
 </head>
