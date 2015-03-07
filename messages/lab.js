@@ -10,7 +10,7 @@ function parse () {
 
 	};
 	request.responseType = "json"
-	request.open("get", "http://messagehub.herokuapp.com/messages.json", true);
+	request.open("get", "data.json", true);
 	request.send();
 }
 
