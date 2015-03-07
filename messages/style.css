@@ -1,1 +1,13 @@
-/* Your CSS here... */
+.message {
+	padding: 20px;
+	margin: 20px;
+	background: #00FF00;
+}
+
+.message p.content {
+	font-size: 18px;
+}
+
+.message p.sender {
+	font-size: 14px;
+}
