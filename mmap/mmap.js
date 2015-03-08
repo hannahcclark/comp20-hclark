@@ -39,10 +39,8 @@ function requestLocs() {
 	request.open("POST", "https://secret-about-box.herokuapp.com/sendLocation",true);
 	request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	request.onreadystatechange = function () {
-		if (request.readyState = 4 && request.status == 200) {
-			console.log("a");
+		if (request.readyState == 4 && request.status == 200) {
 			data = JSON.parse(this.responseText);
-			console.log("b");
 			drawOthers(data);
 		}
 	};
