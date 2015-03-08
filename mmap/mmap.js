@@ -66,10 +66,11 @@ function drawOthers(userLocs) {
 					map: map,
 					position: new google.maps.LatLng(lat, lng),
 					title: val["login"] + ": " + distance + " miles away",
-					disableAutoPan:true
 				});
-				infowindow = new google.maps.InfoWindow();
-				infowindow.setContent(marker.title);
+				infowindow = new google.maps.InfoWindow({
+					content: marker.title,
+					disableAutoPan: true
+				});
 				infowindow.open(map, marker);
 				google.maps.event.addListener(marker, 'click', function () {
 					infowindow.open(map, marker);
