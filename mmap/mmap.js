@@ -40,7 +40,9 @@ function requestLocs() {
 	request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	request.onreadystatechange = function () {
 		if (request.readyState = 4 && request.status == 200) {
+			console.log("a");
 			data = JSON.parse(this.responseText);
+			console.log("b");
 			drawOthers(data);
 		}
 	};
@@ -59,15 +61,14 @@ function drawOthers(userLocs) {
 				dLat = dLat.toRadians();
 				dLng = myLng - lng;
 				dLng = dLng.toRadians();
-				a = Math.sin(dLat/2) * Math.sin(dLat/2) + 
-	                Math.cos(lat.toRadians()) * Math.cos(myLat.toRadians()) * 
-	                Math.sin(dLng/2) * Math.sin(dLng/2); 
+				a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(lat.toRadians()) * Math.cos(myLat.toRadians()) * Math.sin(dLng/2) * Math.sin(dLng/2); 
 				c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
 				distance = 3963.1676 * c;
 				marker = new google.maps.Marker({
 					map: map,
 					position: new google.maps.LatLng(lat, lng),
-					title: val["login"] + ": " + distance + " miles away"
+					title: val["login"] + ": " + distance + " miles away",
+					disableAutoPan:true
 				});
 				infowindow = new google.maps.InfoWindow();
 				infowindow.setContent(marker.title);
