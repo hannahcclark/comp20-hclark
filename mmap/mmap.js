@@ -35,6 +35,7 @@ function useMyLoc () {
 			infowindow.open(map, marker);
 			requestLocs();
 			google.maps.event.addListener(marker, 'click', function () {
+			        console.log("a");
 					infowindow.open(map, marker);
 			});
 		});
@@ -67,7 +68,7 @@ function drawOthers(userLocs) {
 				dLng = dLng.toRadians();
 				a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(lat.toRadians()) * Math.cos(myLat.toRadians()) * Math.sin(dLng/2) * Math.sin(dLng/2); 
 				c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-				distance = 3963.1676 * c;
+				distance = 6371 * c * 0.621371;
 				marker = new google.maps.Marker({
 					map: map,
 					position: new google.maps.LatLng(lat, lng),
@@ -79,6 +80,7 @@ function drawOthers(userLocs) {
 				});
 				infowindow.open(map, marker);
 				google.maps.event.addListener(marker, 'click', function () {
+				    console.log("a");
 					infowindow.open(map, marker);
 				});
 			}
