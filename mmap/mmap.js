@@ -19,11 +19,13 @@ function useMyLoc () {
 			myLng = position.coords.longitude;
 			myPos = new google.maps.LatLng(myLat, myLng);
 			map.panTo(myPos);
+
 			marker = new google.maps.Marker({
 				map: map,
 				position: myPos,
 				title: login,
-				icon: 'moth.jpg'
+				icon: new google.maps.MarkerImage('moth.jpg', null, null, null,
+			        new google.maps.Size(20, 20));
 			});
 			infowindow = new google.maps.InfoWindow();
 			infowindow.setContent(marker.title);
