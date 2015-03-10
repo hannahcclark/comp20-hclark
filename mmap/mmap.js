@@ -32,7 +32,11 @@ function useMyLoc () {
 			infowindow.open(map, marker);
 			requestLocs();
 			google.maps.event.addListener(marker, 'click', function () {
-					infowindow.open(map, this);
+				infowindow = new google.maps.InfoWindow({
+                    content: this.title,
+                    disableAutoPan: true
+                });
+                infowindow.open(map, this);
 			});
 		});
 	}
@@ -76,6 +80,10 @@ function drawOthers(userLocs) {
 				});
 				infowindow.open(map, marker);
 				google.maps.event.addListener(marker, 'click', function () {
+				    infowindow = new google.maps.InfoWindow({
+					    content: this.title,
+					    disableAutoPan: true
+				    });
 					infowindow.open(map, this);
 				});
 			}
