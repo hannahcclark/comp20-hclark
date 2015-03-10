@@ -32,8 +32,9 @@ function useMyLoc () {
 			infowindow.open(map, marker);
 			requestLocs();
 			google.maps.event.addListener(marker, 'click', function () {
-			        console.log("a");
 					infowindow.open(map, marker);
+					console.log(infowindow.content);
+					console.log(marker.title);
 			});
 		});
 	}
@@ -77,7 +78,8 @@ function drawOthers(userLocs) {
 				});
 				infowindow.open(map, marker);
 				google.maps.event.addListener(marker, 'click', function () {
-				    console.log("a");
+				    console.log(marker.title);
+				    console.log(infowindow.content);
 					infowindow.open(map, marker);
 				});
 			}
