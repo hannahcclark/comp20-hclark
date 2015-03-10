@@ -23,12 +23,7 @@ function useMyLoc () {
 				map: map,
 				position: myPos,
 				title: login,
-				icon: {
-                    url: 'moth.jpg',
-                    size: new google.maps.Size(20, 20),
-                    origin: new google.maps.Point(10,10),
-                    anchor: new google.maps.Point(0, 32)
-                }
+				icon: 'moth.jpg'
 			});
 			infowindow = new google.maps.InfoWindow();
 			infowindow.setContent(marker.title);
