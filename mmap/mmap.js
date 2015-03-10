@@ -25,7 +25,7 @@ function useMyLoc () {
 				position: myPos,
 				title: login,
 				icon: new google.maps.MarkerImage('moth.jpg', null, null, null,
-			        new google.maps.Size(20, 20));
+			        new google.maps.Size(20, 20))
 			});
 			infowindow = new google.maps.InfoWindow();
 			infowindow.setContent(marker.title);
