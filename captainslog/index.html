@@ -7,11 +7,18 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script>
 		$(document).ready(function(){
+			for (i = 0; i < localStorage.length; i++) {
+				date = localStorage.key(i);
+				msg = localStorage.getItem(date);
+				$("#log").prepend("<p>" + date.toString() + " - " + msg + "</p>");
+			};
+			localStorage
 			$("#msg").keypress(function(key) {
 				if (key.which == 13) {
 					msg = $("#msg").val();
 					date = new Date();
 			  		$("#log").prepend("<p>" + date.toString() + " - " + msg + "</p>");
+			  		localStorage.setItem(date.toString(), msg);
 			  	}
 		  	});
 		  });
