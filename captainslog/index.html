@@ -8,15 +8,14 @@
 	<script>
 		$(document).ready(function(){
 			for (i = 0; i < localStorage.length; i++) {
-				date = localStorage.key(i);
-				msg = localStorage.getItem(date);
+				var date = localStorage.key(i);
+				var msg = localStorage.getItem(date);
 				$("#log").prepend("<p>" + date.toString() + " - " + msg + "</p>");
 			};
-			localStorage
 			$("#msg").keypress(function(key) {
 				if (key.which == 13) {
-					msg = $("#msg").val();
-					date = new Date();
+					var msg = $("#msg").val();
+					var date = new Date();
 			  		$("#log").prepend("<p>" + date.toString() + " - " + msg + "</p>");
 			  		localStorage.setItem(date.toString(), msg);
 			  	}
