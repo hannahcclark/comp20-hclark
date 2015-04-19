@@ -43,7 +43,7 @@ function useMyLoc () {
 }
 function requestLocs() {
 	request = new XMLHttpRequest();
-	request.open("POST", "https://secret-about-box.herokuapp.com/sendLocation",true);
+	request.open("POST", "https://shielded-tundra-3519.herokuapp.com/sendLocation",true);
 	request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	request.onreadystatechange = function () {
 		if (request.readyState == 4 && request.status == 200) {
