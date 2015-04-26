@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>Marauder's Map Security Assessment</title>
+</head>
+<body>
+<h1>Security Assessment of the Marauder's Map</h1>
+by Hannah Clark
+<br>4/24/2015
+
+<h2>Introduction</h2>
+<hr/>
+<p>This report gives an assessment of the privacy and security vulnerabilities of the Marauder's Map <a href="http://tuftsdev.github.io/comp20-pbooth/mmap/">client</a> and <a href="http://sheltered-mesa-2531.herokuapp.com/">server</a> by Phillip Booth for Comp 20 assignment 4 in the Spring 2015 semester. The Marauder's Map client displays a map with pins and info windows with the last logged location of each user. The server provides the endpoints by which locations can be saved by user login and retrieved either for all users or a single user.</p>
+
+<p>A vulnerability is classified as something that could be exploited to cause damage to the functionality of the application or a method by which someone could access or change data which is not theirs or they should not have permission to.</p>
+
+<br/><h2>Methodology</h2>
+<hr/>
+<p>Testing was carried out first by black box testing the client-side and server-side, hosted on Github and Heroku respectively, at the urls provided. I used curl to make requests that would highlight vulnerabilities. I then scrutinized the source code for remaining vulnerabilities that could be exploited.</p>
+
+<br/><h2>General Findings</h2>
+<hr/>
+<p>There were both security and privacy issues found. Security issues found were mostly due to too much faith in the input from the client. While some were very dangerous and could be a gateway for a malicious attack on the site and its users, some were simply inconveniences. Other privacy issues were due to the structure of the application and will require ne infrastructure to address.</p>
+
+<br/><h2>Issues Found</h2>
+<hr/>
+<ol>
+<li><h4>Cross-Site Scripting</h4>
+	<ul>
+	<li>In POST API, will affect GET API route <code>/</code> on server-side and the client-side</li>
+	<li><p>Level: High</p>
+		<p>At minimum, it causes great annoyance to users. However, this can also redirect users to malicious sites or have other malicious impact on users</p></li>
+	<li><p>There is no validation done on logins, which are allowed to be strings, and stored in the database and placed in html wholesale. Running <code>curl --data &quot;login=&lt;script&gt;alert()&lt;/script&gt;&amp;lat=0&amp;lng=0&quot; &quot;http://sheltered-mesa-2531.herokuapp.com/sendLocation&quot;</code> inserts a script as a login.</p> <img src="alert.png" alt="Display of an alert on the server index page"/></li>
+	<li>This can be solved by stripping out or escaping special characters necessary to insert a script in the login when it is received by the POST endpoint. Using
+	<code> ESAPI.encoder().encodeForHTML(request.body.login);</code> or other encoders, found on the <a href="https://www.owasp.org/index.php/XSS_%28Cross_Site_Scripting%29_Prevention_Cheat_Sheet">OWASP website</a> instead of directly passing the login could help resolve this</li>
+	</ul>
+</li>
+
+<li><h4>User Visibility</h4>
+	<ul>
+	<li>In GET and POST API, will affect GET API route <code>/</code> and <code>location.json</code> on server-side and the client-side</li>
+	<li><p>Level: Moderate</p>
+		<p>Users locations are visible to anyone, with nothing to protect against people who users do not want to be able to see their locations</p></li>
+	<li><p>Anyone can see everyone else's location, which is a major privace issue.</p> <img src="visibilityClient.png" alt="Display of users on client page"/>
+	<img src="visibilityServer.png" alt="Display of users on server index page"/></li>
+	<li>This can be solved by requiring authentication and adjusting the data model to include giving users the ability to choose who they are visible too.</li>
+	</ul>
+</li>
+
+<li><h4>User Authentication/Validation</h4>
+	<ul>
+	<li>In POST API, will affect GET API route <code>/</code> and <code>location.json</code> on server-side and client-side</li>
+	<li><p>Level: Low-Moderate</p>
+		<p>Users locations are accepted even for bogus user names, which can be input by executing a post request with curl inputting any string as the login parameter. This can include oversized names which cause inconvenience when viewing other users.</p> <img src="bogus.png" alt ="Display of bogus user name"/></li>
+	<li>This can be solved by adding an authentication system to application so that locations can only be submitted by valid registered users</li>
+	</ul>
+</li>
+
+<li><h4>Lack of Validation on Input Type</h4>
+	<ul>
+	<li>In POST API, will effect client-side when it attempts to compute on items that are not numbers</li>
+	<li><p>Level: Low</p>
+		<p>This does not cause errors; however, it affects the integrity of the database because of inconsistency of types that are expected to be numbers</p></li>
+	<li><p>Latitudes and longitudes submitted should be numbers. However, the method also allows submission of strings without error or attempting to make them numbers. Running <code>curl --data &quot;login=someLogin&amp;lat=not&amp;lng=number&quot; &quot;http://sheltered-mesa-2531.herokuapp.com/sendLocation&quot;</code> inserts "not" and "number" rather than some number into the database.</p> <img src="notNumber.png" alt="Display of a non-number in a number field"/></li>
+	<li>This can be solved by always converting the lat and lng parameter values to floats before storing in the database by calling <code>parseFloat(string)</code>.</li>
+	</ul>
+</li>
+</ol>
+<br/><h2>Conclusion</h2>
+<hr/>
+<p> The most damaging vulnerability is cross-site scripting, which should be remedied immediately. While the issue with locations is not damaging to the functionality, it can also be easily fixed and so should also be done so quickly. The addition of a user authentication system, while requiring much additional infrastructure, would go a long way to fixing the large issue of privacy as well as false users. An additional assessment should be conducted after such a system has been implemented to check for any vulnerabilities in it or introduced through it.</p>
+</body>
+</html>
