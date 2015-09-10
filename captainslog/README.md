@@ -1,4 +1,7 @@
-#Captain's Log
-* I have successfully implemented all components of this assignment
-* I did not collaborate with anyone on this assignment
-* It took me roughly 1 hour to complete this assignment
+# Captain's Log
+
+This produces a web page that allows users to input messages to appear on the screen along with the date entered. Previously entered messages are loaded when the page is openned.
+
+Goals of this assignment:
+* become familiar with the use of local storage
+* become familiar with the use of JQuery to update the HTML document
