@@ -1,8 +1,6 @@
-#Responsive
+# Responsive
+This project was a web page that displays a different image depending on the size of the browser.
 
-Comp 20-Lab 4
-Responsive design and sprites in css.
-
-I have correctly implemented all aspects of the assignment.
-I did not receive any help on the assignment.
-I spent roughly a half hour on this assignment.
+Goals:
+* Become familiar with the use of screen size in css to result in responsive design
+* Become familiar with the use of sprite sheets
