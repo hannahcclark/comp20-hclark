@@ -1,8 +1,4 @@
 Ms. Pac-Man
 -------------
-I believe all aspects have been implemented correctly.
-
-I did not collaborate with anyone on this assignment.
-
-I spent roughly a half hour on this assignment.
+The purpose of this assignment was to understand how to use sprite sheets by using Javascript to draw a specific portion of an image on the page.
 
